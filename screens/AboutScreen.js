@@ -2,9 +2,36 @@ import { ScrollView, Text } from 'react-native';
 import { Card, ListItem, Avatar } from 'react-native-elements';
 import { useSelector } from 'react-redux';
 import {baseUrl} from '../shared/baseUrl';
+import Loading from '../components/loadingComponent';
 
 const AboutScreen = () => {
    const partners = useSelector((state)=> state.partners);
+
+   if (partners.isLoading){
+    return (
+        <ScrollView>
+        <Mission/>
+        <Card>
+            <Card.Title>Community partners</Card.Title>
+            <Card.Divider/>
+            <Loading/>
+        </Card>
+    </ScrollView>
+    );
+   }
+
+   if (partners.errMess){
+    return (
+        <ScrollView>
+        <Mission/>
+        <Card>
+            <Card.Title>Community partners</Card.Title>
+            <Card.Divider/>
+           <Text>{partners.errMess}</Text>
+        </Card>
+    </ScrollView>
+    );
+   }
 
 return (
     <ScrollView>
