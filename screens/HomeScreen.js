@@ -1,10 +1,7 @@
-import {Text, View} from 'react-native';
-import {useState} from 'react';
-import { ScrollView } from 'react-native';
+import {Text, View, ScrollView} from 'react-native';
 import { Card } from 'react-native-elements';
-import {CAMPSITES} from '../shared/campsites';
-import {PROMOTIONS} from '../shared/promotions';
-import {PARTNERS} from '../shared/partners';
+import {baseUrl} from '../shared/baseUrl';
+import { useSelector } from 'react-redux';
 
 const FeaturedItem = ({item}) => {
 if (item){
@@ -15,7 +12,7 @@ if (item){
         }}
         >
             <Card.Image
-            source={item.image}
+            source={{uri: baseUrl + item.image}}
             >
                 <View
                 style={{justifyContent: 'center', flex:1}}
@@ -38,13 +35,13 @@ return <View/>
 };
 
 const HomeScreen = () => {
-    const [campsites, setCampsites] = useState(CAMPSITES);
-    const [partners, setPartners] = useState(PARTNERS);
-    const [promotions, setPromotions] = useState(PROMOTIONS);
+    const campsites = useSelector((state)=> state.campsites);
+    const partners = useSelector((state)=> state.partners);
+    const promotions = useSelector((state)=> state.promotions);
 
-    const featCampsite = campsites.find((item)=> item.featured);
-    const featPromotion = promotions.find((item)=> item.featured);
-    const featPartner = partners.find((item)=> item.featured);
+    const featCampsite = campsites.campsitesArray.find((item)=> item.featured);
+    const featPromotion = promotions.promotionsArray.find((item)=> item.featured);
+    const featPartner = partners.partnersArray.find((item)=> item.featured);
 
 return(
     <ScrollView>
