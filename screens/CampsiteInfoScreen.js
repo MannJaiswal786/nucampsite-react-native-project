@@ -6,7 +6,10 @@ import { toggleFavorite } from '../features/favorites/favoritesSlice';
 
 const CampsiteInfoScreen = ({route}) => {
     const {campsite} = route.params;
+      // Add the console.log here to verify the route params
+      console.log('Campsite from Route Params:', campsite);
     const comments = useSelector((state)=> state.comments);
+    console.log('Comments from Redux Store:', comments);
     const favorites = useSelector((state)=> state.favorites);
     const dispatch = useDispatch();
 
@@ -33,10 +36,15 @@ const CampsiteInfoScreen = ({route}) => {
         );
     }
 
+    // const filteredComments = comments.commentsArray.filter((comment) => {
+    //     console.log('Filtering comment:', comment.campsiteId, 'Campsite ID:', campsite.id);
+    //     return comment.campsiteId === campsite.id;
+    // });
+
 return (
     <FlatList
     data={comments.commentsArray.filter(
-    (comment)=> comment.campsiteId === campsite.id
+    (comment)=> comment.campsiteId === Number(campsite.id)
     )}
     renderItem={renderCommentItem}
     keyExtractor={(item)=> item.id.toString()}
@@ -76,6 +84,6 @@ const styles = StyleSheet.create(
             backgroundColor: '#fff'
         }
     }
-)
+);
 
 export default CampsiteInfoScreen;
