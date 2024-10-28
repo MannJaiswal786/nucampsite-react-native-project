@@ -257,7 +257,7 @@ return (
         />
 
         <Drawer.Screen
-        name='DirectoryNav'
+        name='Directory'
         component={DirectoryNavigator}
         options={{title: 'Campsite Directory',
             drawerIcon: ({color})=> (
