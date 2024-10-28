@@ -5,6 +5,7 @@ import { toggleFavorite } from '../features/favorites/favoritesSlice';
 import { useState } from 'react';
 import { color } from 'react-native-elements/dist/helpers';
 import { Input, Rating } from 'react-native-elements';
+import { postComment } from '../features/comments/commentsSlice';
 
 
 const CampsiteInfoScreen = ({route}) => {
@@ -27,7 +28,7 @@ const CampsiteInfoScreen = ({route}) => {
             text, 
             rating
         };
-        console.log(newComment);
+        dispatch(postComment(newComment));
         setShowModal(!showModal);
     };
 
@@ -63,13 +64,12 @@ const CampsiteInfoScreen = ({route}) => {
         );
     }
 
-
-
 return (
     <>
     <FlatList
     data={comments.commentsArray.filter(
-    (comment)=> comment.campsiteId === Number(campsite.id)
+    //(comment)=> comment.campsiteId === Number(campsite.id)
+    (comment)=> comment.campsiteId === campsite.id
     )}
     renderItem={renderCommentItem}
     keyExtractor={(item)=> item.id.toString()}
@@ -111,12 +111,14 @@ return (
             leftIcon={{type: 'font-awesome', name: 'user-o'}}
             leftIconContainerStyle={{paddingRight: 10}}
             onChangeText={(value)=> setAuthor(value)}
+            value={author}
             ></Input>
             <Input
             placeholder='Comment'
             leftIcon={{type: 'font-awesome', name: 'comment-o'}}
             leftIconContainerStyle={{paddingRight: 10}}
             onChangeText={(value)=> setText(value)}
+            value={text}
             multiline
             ></Input>
             <View
