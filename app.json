@@ -2,6 +2,14 @@
   "expo": {
     "name": "nucampsite",
     "slug": "nucampsite",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "extra": {
+      "eas": {
+        "projectId": "42bb4939-1a15-4d0a-849e-475d275abc46"
+      }
+    },
+    "plugins": [
+      "expo-secure-store"
+    ]
   }
 }
